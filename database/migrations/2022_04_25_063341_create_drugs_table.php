@@ -16,7 +16,7 @@ class CreateDrugsTable extends Migration
     Schema::create('drugs', function (Blueprint $table) {
       $table->id();
       $table->string('title');
-      $table->string('slug');
+      $table->string('slug')->unique();
       $table->string('category');
       $table->string('prescription');
       $table->string('direction_id')->nullable();

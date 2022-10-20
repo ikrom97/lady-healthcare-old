@@ -40,5 +40,6 @@ Route::group(['middleware' => ['AuthCheck'], 'prefix' => 'admin'], function () {
   Route::get('/directions/{action?}/{direction?}', [AdminController::class, 'directions'])->name('admin.directions');
   Route::post('/directions/{action?}', [AdminController::class, 'directionsPost'])->name('directions.post');
 
-  Route::get('/banners', [AdminController::class, 'banners'])->name('admin.banners');
+  Route::get('/banners/{action?}/{banner?}', [AdminController::class, 'banners'])->name('admin.banners');
+  Route::post('/banners/{action?}', [AdminController::class, 'bannersPost'])->name('banners.post');
 });

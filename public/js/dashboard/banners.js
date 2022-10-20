@@ -1,14 +1,13 @@
-import { showEditForm } from './banner-forms.js';
-
-const bannersListEl = document.querySelector('.glide__slides');
-
-new Glide('.glide', {
-  startAt: 0,
-  perView: 1,
-  gap: 0,
-}).mount();
-
-bannersListEl.addEventListener('contextmenu', (evt) => {
-  evt.preventDefault();
-  showEditForm(evt);
+document.addEventListener('click', (evt) => {
+  if (evt.target.dataset.action === 'delete') {
+    evt.target.closest('tr')
+      .innerHTML = `
+      <td colspan="2">Вы уверены что хотите удалить?</td>
+      <td><a data-action="cancel">Отмена</a></td>
+      <td><a href="/admin/banners/delete/${evt.target.dataset.id}">Удалить</a></td>
+    `;
+  }
+  if (evt.target.dataset.action === 'cancel') {
+    location.reload();
+  }
 });

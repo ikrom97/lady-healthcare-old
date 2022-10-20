@@ -231,34 +231,21 @@ class AdminController extends Controller
 
     switch ($request->action) {
       case 'create':
-        $data->directions = Direction::get();
-        $data->releaseForms = ReleaseForm::get();
-        $data->product = null;
+        $data->banner = null;
 
-        return view('dashboard.pages.products.show', compact('data'));
+        return view('dashboard.pages.banners.show', compact('data'));
 
       case 'edit':
-        $data->directions = Direction::get();
-        $data->releaseForms = ReleaseForm::get();
-        $data->product = Drug::find($request->product);
+        $data->banner = Banner::find($request->banner);
 
-        return view('dashboard.pages.products.show', compact('data'));
+        return view('dashboard.pages.banners.show', compact('data'));
 
       case 'delete':
-        $product = Drug::find($request->product);
-        $product->img
-          && file_exists($product->img)
-          &&  unlink($product->img);
-
-        $product->thumb_img
-          && file_exists($product->img_thumb)
-          &&  unlink($product->img_thumb);
-
-        $product->instruction
-          && file_exists($product->instruction)
-          &&  unlink($product->instruction);
-
-        $product->delete();
+        $banner = Banner::find($request->banner);
+        $banner->img
+          && file_exists($banner->img)
+          &&  unlink($banner->img);
+        $banner->delete();
 
         return back();
 
@@ -271,109 +258,44 @@ class AdminController extends Controller
 
   public function bannersPost(Request $request)
   {
-    $request->validate(['title' => 'required']);
-
     switch ($request->action) {
       case 'store':
-        $product = new Drug();
-        $product->title = $request->title;
-        $product->slug = SlugService::createSlug(Drug::class, 'slug', $product->title);
-        $product->category = $request->category;
-        $product->prescription = $request->prescription;
-        $product->direction_id = $request->direction_id;
-        $product->release_form_id = $request->release_form_id;
-        $product->description = $request->description;
-        $product->compound = $request->compound;
-        $product->indications = $request->indications;
-        $product->mode = $request->mode;
-        $product->url = $request->url;
+        $banner = new Banner();
+        $banner->title = $request->title;
+        $banner->link = $request->link;
+        $banner->url = $request->url;
+        $banner->text = $request->text;
 
         if ($request->hasFile('img')) {
           $file = $request->file('img');
-          $fileName = $product->slug . '.' . $file->extension();
-          $file->move(public_path('img/products'), $fileName);
-
-          Helper::resize_crop_image(
-            500,
-            500,
-            public_path('img/products/' . $fileName),
-            public_path('img/products/' . $fileName)
-          );
-          Helper::resize_crop_image(
-            180,
-            180,
-            public_path('img/products/' . $fileName),
-            public_path('img/products/thumbs/' . $fileName)
-          );
-          $product->img = 'img/products/' . $fileName;
-          $product->img_thumb = 'img/products/thumbs/' . $fileName;
+          $fileName = uniqid() . '.' . $file->extension();
+          $file->move(public_path('img/banners'), $fileName);
+          $banner->img = 'img/banners/' . $fileName;
         }
 
-        if ($request->hasFile('instruction')) {
-          $file = $request->file('instruction');
-          $fileName = $product->slug . '.' . $file->extension();
-          $file->move(public_path('files/products'), $fileName);
-          $product->instruction = 'files/products/' . $fileName;
-        }
-
-        $product->save();
+        $banner->save();
 
         return back()->with('success', 'Данные успешно сохранена');
 
       case 'update':
-        $product = Drug::find($request->id);
-        $product->title = $request->title;
-        $product->category = $request->category;
-        $product->prescription = $request->prescription;
-        $product->direction_id = $request->direction_id;
-        $product->release_form_id = $request->release_form_id;
-        $product->description = $request->description;
-        $product->compound = $request->compound;
-        $product->indications = $request->indications;
-        $product->mode = $request->mode;
-        $product->url = $request->url;
+        $banner = Banner::find($request->id);
+        $banner->title = $request->title;
+        $banner->link = $request->link;
+        $banner->url = $request->url;
+        $banner->text = $request->text;
 
         if ($request->hasFile('img')) {
-          $product->img
-            && file_exists($product->img)
-            &&  unlink($product->img);
-
-          $product->img_thumb
-            && file_exists($product->img_thumb)
-            &&  unlink($product->img_thumb);
+          $banner->img
+            && file_exists($banner->img)
+            && unlink($banner->img);
 
           $file = $request->file('img');
-          $fileName = $product->slug . '.' . $file->extension();
-          $file->move(public_path('img/products'), $fileName);
-
-          Helper::resize_crop_image(
-            500,
-            500,
-            public_path('img/products/' . $fileName),
-            public_path('img/products/' . $fileName)
-          );
-          Helper::resize_crop_image(
-            180,
-            180,
-            public_path('img/products/' . $fileName),
-            public_path('img/products/thumbs/' . $fileName)
-          );
-          $product->img = 'img/products/' . $fileName;
-          $product->img_thumb = 'img/products/thumbs/' . $fileName;
+          $fileName = uniqid() . '.' . $file->extension();
+          $file->move(public_path('img/banners'), $fileName);
+          $banner->img = 'img/banners/' . $fileName;
         }
 
-        if ($request->hasFile('instruction')) {
-          $product->instruction
-            && file_exists($product->instruction)
-            &&  unlink($product->instruction);
-
-          $file = $request->file('instruction');
-          $fileName = $product->slug . '.' . $file->extension();
-          $file->move(public_path('files/products'), $fileName);
-          $product->instruction = 'files/products/' . $fileName;
-        }
-
-        $product->save();
+        $banner->update();
 
         return back()->with('success', 'Данные успешно сохранена');
     }
