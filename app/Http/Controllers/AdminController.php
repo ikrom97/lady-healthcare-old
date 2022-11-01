@@ -85,9 +85,8 @@ class AdminController extends Controller
           $file = $request->file('img');
           $fileName = $product->slug . '.' . $file->extension();
           $file->move(public_path('img/products'), $fileName);
-          $file->move(public_path('img/products/thumbs'), $fileName);
           $product->img = 'img/products/' . $fileName;
-          $product->img_thumb = 'img/products/thumbs/' . $fileName;
+          $product->img_thumb = 'img/products/' . $fileName;
         }
 
         if ($request->hasFile('instruction')) {
@@ -126,7 +125,6 @@ class AdminController extends Controller
           $file = $request->file('img');
           $fileName = $product->slug . '.' . $file->extension();
           $file->move(public_path('img/products'), $fileName);
-          $file->move(public_path('img/products/thumbs'), $fileName);
           $product->img = 'img/products/' . $fileName;
           $product->img_thumb = 'img/products/thumbs/' . $fileName;
         }
