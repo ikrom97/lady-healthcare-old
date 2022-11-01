@@ -85,19 +85,7 @@ class AdminController extends Controller
           $file = $request->file('img');
           $fileName = $product->slug . '.' . $file->extension();
           $file->move(public_path('img/products'), $fileName);
-
-          Helper::resize_crop_image(
-            500,
-            500,
-            public_path('img/products/' . $fileName),
-            public_path('img/products/' . $fileName)
-          );
-          Helper::resize_crop_image(
-            180,
-            180,
-            public_path('img/products/' . $fileName),
-            public_path('img/products/thumbs/' . $fileName)
-          );
+          $file->move(public_path('img/products/thumbs'), $fileName);
           $product->img = 'img/products/' . $fileName;
           $product->img_thumb = 'img/products/thumbs/' . $fileName;
         }
@@ -138,19 +126,7 @@ class AdminController extends Controller
           $file = $request->file('img');
           $fileName = $product->slug . '.' . $file->extension();
           $file->move(public_path('img/products'), $fileName);
-
-          Helper::resize_crop_image(
-            500,
-            500,
-            public_path('img/products/' . $fileName),
-            public_path('img/products/' . $fileName)
-          );
-          Helper::resize_crop_image(
-            180,
-            180,
-            public_path('img/products/' . $fileName),
-            public_path('img/products/thumbs/' . $fileName)
-          );
+          $file->move(public_path('img/products/thumbs'), $fileName);
           $product->img = 'img/products/' . $fileName;
           $product->img_thumb = 'img/products/thumbs/' . $fileName;
         }
