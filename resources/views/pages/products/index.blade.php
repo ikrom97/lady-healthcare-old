@@ -4,28 +4,39 @@
 
 @section('content')
   <section class="banner">
-    <div class="glide">
+    <div class="glide banner__glide">
       <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
           @foreach ($data->banners as $banner)
             <li class="glide__slide">
-              <div class="container glide__container">
-                <h2 class="glide__title">{{ $banner->title }}</h2>
-                <p class="glide__text">{{ $banner->text }}</p>
-                @if ($banner->url)
-                  <a class="button glide__link" href="{{ $banner->url }}" target="_blank">
-                    {{ $banner->link }}
-                  </a>
-                @endif
+              <div class="banner__container container">
+                <div class="banner-inner">
+                  <h2 class="banner__title">
+                    {{ $banner->title }}
+                    <small class="banner__subtitle">{{ $banner->subtitle }}</small>
+                  </h2>
+                  <p class="banner__text">{{ $banner->text }}</p>
+                  @if ($banner->url)
+                    <a class="banner__button button" href="{{ $banner->url }}" target="_blank">
+                      {{ $banner->link }}
+                    </a>
+                  @endif
+                </div>
+
+                <img
+                  class="banner__image"
+                  width="480"
+                  height="600"
+                  src="{{ asset($banner->image) }}"
+                  alt="{{ $banner->title }}">
+
+                <div class="glide__arrows" data-glide-el="controls">
+                  <button class="glide__arrow glide__arrow--right" data-glide-dir=">"></button>
+                </div>
               </div>
-              <img class="glide__img" src="{{ asset($banner->img) }}" alt="{{ $banner->title }}">
             </li>
           @endforeach
         </ul>
-      </div>
-
-      <div class="glide__arrows" data-glide-el="controls">
-        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"></button>
       </div>
     </div>
   </section>

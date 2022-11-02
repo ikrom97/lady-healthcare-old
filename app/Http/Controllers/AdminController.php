@@ -216,9 +216,9 @@ class AdminController extends Controller
 
       case 'delete':
         $banner = Banner::find($request->banner);
-        $banner->img
-          && file_exists($banner->img)
-          &&  unlink($banner->img);
+        $banner->image
+          && file_exists($banner->image)
+          &&  unlink($banner->image);
         $banner->delete();
 
         return back();
@@ -236,15 +236,16 @@ class AdminController extends Controller
       case 'store':
         $banner = new Banner();
         $banner->title = $request->title;
+        $banner->subtitle = $request->subtitle;
         $banner->link = $request->link;
         $banner->url = $request->url;
         $banner->text = $request->text;
 
-        if ($request->hasFile('img')) {
-          $file = $request->file('img');
+        if ($request->hasFile('image')) {
+          $file = $request->file('image');
           $fileName = uniqid() . '.' . $file->extension();
           $file->move(public_path('img/banners'), $fileName);
-          $banner->img = 'img/banners/' . $fileName;
+          $banner->image = 'img/banners/' . $fileName;
         }
 
         $banner->save();
@@ -254,19 +255,20 @@ class AdminController extends Controller
       case 'update':
         $banner = Banner::find($request->id);
         $banner->title = $request->title;
+        $banner->subtitle = $request->subtitle;
         $banner->link = $request->link;
         $banner->url = $request->url;
         $banner->text = $request->text;
 
-        if ($request->hasFile('img')) {
-          $banner->img
-            && file_exists($banner->img)
-            && unlink($banner->img);
+        if ($request->hasFile('image')) {
+          $banner->image
+            && file_exists($banner->image)
+            && unlink($banner->image);
 
-          $file = $request->file('img');
+          $file = $request->file('image');
           $fileName = uniqid() . '.' . $file->extension();
           $file->move(public_path('img/banners'), $fileName);
-          $banner->img = 'img/banners/' . $fileName;
+          $banner->image = 'img/banners/' . $fileName;
         }
 
         $banner->update();

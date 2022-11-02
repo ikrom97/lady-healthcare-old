@@ -14,40 +14,14 @@ class BannersSeeder extends Seeder
    */
   public function run()
   {
-    $banners = array(
-      array(
-        'id' => 1,
-        'img' => 'img/banners/img-1.png',
-        'title' => 'Нео Витес для иммунитета',
-        'text' => 'НЕО ВИТЕС (для иммунитета) стимулирует как специфические, так и неспецифические факторы иммунитета.',
-        'link' => 'К препарату',
-        'url' => '#',
-      ),
-      array(
-        'id' => 2,
-        'img' => 'img/banners/img-2.png',
-        'title' => 'Нео Витес для иммунитета',
-        'text' => 'НЕО ВИТЕС (для иммунитета) стимулирует как специфические, так и неспецифические факторы иммунитета.',
-        'link' => 'К препарату',
-        'url' => '#',
-      ),
-      array(
-        'id' => 3,
-        'img' => 'img/banners/img-1.png',
-        'title' => 'Нео Витес для иммунитета',
-        'text' => null,
-        'link' => null,
-        'url' => null,
-      ),
-    );
-
-    foreach ($banners as $banner) {
+    foreach (range(1, 3) as $key) {
       Banner::create([
-        'img' => $banner['img'],
-        'title' => $banner['title'],
-        'text' => $banner['text'],
-        'link' => $banner['link'],
-        'url' => $banner['url'],
+        'image' => 'img/banners/banner.png',
+        'title' => 'Нео Витес',
+        'subtitle' => 'Для иммунитета',
+        'text' => 'НЕО ВИТЕС (для иммунитета) стимулирует как специфические, так и неспецифические факторы иммунитета.',
+        'link' => 'К препарату',
+        'url' => '#',
       ]);
     }
   }

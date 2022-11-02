@@ -1034,8 +1034,46 @@ p {
 
 /* banner section start */
 .banner {
-  background-color: rgba(0, 0, 0, 0.2);
   height: 740px;
+}
+
+.banner__container {
+  display: flex;
+  align-items: center;
+  padding-right: 232px;
+  padding-left: 80px;
+  margin-bottom: 40px;
+}
+
+.banner__title {
+  min-width: 340px;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 56px;
+}
+
+.banner__subtitle {
+  display: block;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.banner__text {
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+
+.banner__button {
+  width: 258px;
+}
+
+.banner__image {
+  margin: 0 64px;
+  object-fit: contain;
+  object-position: center;
 }
 
 /* products filter */
@@ -1695,10 +1733,6 @@ input:checked+.filter-form__label--checkbox {
     height: 96px;
   }
 
-  .banner {
-    height: 560px;
-  }
-
   .glide__container {
     padding-right: 559px;
     padding-left: 0px;
@@ -1715,10 +1749,6 @@ input:checked+.filter-form__label--checkbox {
 
   .glide__text {
     margin-bottom: 16px;
-  }
-
-  .glide__arrow--right {
-    right: 35%;
   }
 
   .title--product {
@@ -1863,6 +1893,27 @@ input:checked+.filter-form__label--checkbox {
   .map {
     height: calc(100% - 96px);
   }
+
+  .banner__container {
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .banner__title {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .banner__subtitle {
+    font-size: 20px;
+  }
+
+  .banner__image {
+    height: 532px;
+    width: 400px;
+    margin-left: 32px;
+    margin-right: 32px;
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -1963,10 +2014,6 @@ input:checked+.filter-form__label--checkbox {
 
   .glide__subtitle {
     font-size: 16px;
-  }
-
-  .glide__arrow--right {
-    right: 30%;
   }
 
   .filter-form {
@@ -2100,6 +2147,32 @@ input:checked+.filter-form__label--checkbox {
     height: 100%;
     overflow: scroll;
   }
+
+  .banner {
+    height: auto;
+  }
+
+  .banner__container {
+    flex-wrap: wrap;
+    padding-top: 280px;
+  }
+
+  .banner__image {
+    order: -1;
+    margin: 0;
+    margin-bottom: 32px;
+    width: calc(100% - 48px);
+    height: 458px;
+  }
+
+  .banner-inner {
+    max-width: 400px;
+    margin-bottom: 32px;
+  }
+
+  .glide__arrows {
+    order: -1;
+  }
 }
 
 @media screen and (max-width: 575px) {
@@ -2109,10 +2182,6 @@ input:checked+.filter-form__label--checkbox {
 
   .main-footer .container {
     grid-template-columns: 1fr;
-  }
-
-  .banner {
-    height: auto;
   }
 
   .about__container {
@@ -2167,6 +2236,10 @@ input:checked+.filter-form__label--checkbox {
 
   .product__link {
     margin-right: 0;
+  }
+
+  .banner__image {
+    height: 312px;
   }
 }
 

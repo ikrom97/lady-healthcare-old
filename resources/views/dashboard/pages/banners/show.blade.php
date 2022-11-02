@@ -26,11 +26,7 @@
       <a class="page__link" data-action="submit">Сохранить</a>
     </div>
 
-    <img
-      @if ($data->banner) src="{{ asset($data->banner->img) }}" @endif
-      width="1280"
-      height="628"
-      style="object-fit: cover;">
+
 
     <form class="form-dash" action="{{ $data->banner ? route('banners.post', ['action' => 'update']) : route('banners.post', ['action' => 'store']) }}" method="post" enctype="multipart/form-data">
       @csrf
@@ -39,24 +35,36 @@
         <input type="hidden" name="id" value="{{ $data->banner->id }}">
       @endif
 
-      <label class="form-dash__element">
+      <label class="form-dash__element" style="grid-column: span 2">
         <span class="form-dash__label">Баннер</span>
-        <input class="visually-hidden" name="img" type="file">
+        <input class="visually-hidden" name="image" type="file">
         <input
           class="form-dash__field"
           type="text"
-          placeholder="{{ $data->banner && $data->banner->img ? $data->banner->img : 'Выберите файл' }}"
-          value="{{ $data->banner->img ?? '' }}"
+          placeholder="{{ $data->banner && $data->banner->image ? $data->banner->image : 'Выберите файл' }}"
+          value="{{ $data->banner->image ?? '' }}"
           readonly>
       </label>
+
+      <div style="grid-column: span 2"></div>
 
       <label class="form-dash__element">
         <span class="form-dash__label">Заголовок</span>
         <input
           class="form-dash__field"
           name="title"
-          placeholder="Нео Витес для имменитета"
+          placeholder="Нео Витес"
           value="{{ $data->banner->title ?? '' }}">
+        </input>
+      </label>
+
+      <label class="form-dash__element">
+        <span class="form-dash__label">Подзаголовок</span>
+        <input
+          class="form-dash__field"
+          name="subtitle"
+          placeholder="Для иммунитета"
+          value="{{ $data->banner->subtitle ?? '' }}">
         </input>
       </label>
 
