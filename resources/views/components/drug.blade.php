@@ -18,7 +18,7 @@
     </h3>
 
     <div class="drug-card__description">
-      {!! $drug->description !!}
+      {!! strip_tags($drug->description) !!}
     </div>
     <p class="drug-card__filter">
       {{ $drug->category === 'for-women' ? 'Для женщин' : 'Для детей' }}
